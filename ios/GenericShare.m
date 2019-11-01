@@ -59,7 +59,9 @@
         NSString *escapedString = [options[@"message"] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
 
         if ([options[@"social"] isEqualToString:@"twitter"]) {
-          NSString *escapedURL = [options[@"url"] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+          NSCharacterSet *percentEncodingCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~"]];
+
+          NSString *escapedURL = [options[@"url"] stringByAddingPercentEncodingWithAllowedCharacters:percentEncodingCharacterSet];
 
           NSString *URL = [NSString stringWithFormat:@"https://twitter.com/intent/tweet?text=%@&url=%@", escapedString, escapedURL];
 

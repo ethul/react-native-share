@@ -59,7 +59,7 @@
         NSString *escapedString = [options[@"message"] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
 
         if ([options[@"social"] isEqualToString:@"twitter"]) {
-          NSCharacterSet *percentEncodingCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~"]];
+          NSCharacterSet *percentEncodingCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~"];
 
           NSString *escapedURL = [options[@"url"] stringByAddingPercentEncodingWithAllowedCharacters:percentEncodingCharacterSet];
 

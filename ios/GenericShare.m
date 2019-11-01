@@ -69,7 +69,7 @@
 
         if ([options[@"social"] isEqualToString:@"facebook"]) {
           // Not ideal, but necessary for the share dialog.
-          NSString *facebookAppId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"];
+          NSString *facebookAppId = options[@"facebookAppId"];
           NSString *URL = [NSString stringWithFormat:@"https://www.facebook.com/dialog/share?app_id=%@&quote=%@&href=%@", facebookAppId, escapedString, escapedURL];
           [self openScheme:URL];
         }

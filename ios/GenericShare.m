@@ -56,20 +56,19 @@
         NSLog(errorMessage);
         failureCallback(error);
 
-        NSString *escapedString = [options[@"message"] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+        NSCharacterSet *percentEncodingCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~"];
+
+        NSString *escapedString = [options[@"message"] stringByAddingPercentEncodingWithAllowedCharacters:percentEncodingCharacterSet];
+
+        NSString *escapedURL = [options[@"url"] stringByAddingPercentEncodingWithAllowedCharacters:percentEncodingCharacterSet];
 
         if ([options[@"social"] isEqualToString:@"twitter"]) {
-          NSCharacterSet *percentEncodingCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~"];
-
-          NSString *escapedURL = [options[@"url"] stringByAddingPercentEncodingWithAllowedCharacters:percentEncodingCharacterSet];
-
           NSString *URL = [NSString stringWithFormat:@"https://twitter.com/intent/tweet?text=%@&url=%@", escapedString, escapedURL];
-
           [self openScheme:URL];
         }
 
         if ([options[@"social"] isEqualToString:@"facebook"]) {
-          NSString *URL = [NSString stringWithFormat:@"https://www.facebook.com/sharer/sharer.php?u=%@", options[@"url"]];
+          NSString *URL = [NSString stringWithFormat:@"https://www.facebook.com/dialog/share?quote=%@&href=%@", escapedString, escapedURL];
           [self openScheme:URL];
         }
 
